@@ -3,12 +3,19 @@ import React from 'react';
 import './Burger.css';
 import BurgerIngredients from './BurgerIngredients';
 
-const Burger = () => {
+const Burger = (props) => {
+  const transformedIngredients = Object.keys(props.ingredients).map((igKey) => {
+    console.log(igKey);
+    return [...Array(props.ingredients[igKey])].map((_, i) => {
+      console.log(i);
+      return <BurgerIngredients key={igKey + i} type={igKey} />;
+    });
+  });
+
   return (
     <div className="Burger">
       <BurgerIngredients type="bread-top" />
-      <BurgerIngredients type="cheese" />
-      <BurgerIngredients type="meat" />
+      {transformedIngredients}
       <BurgerIngredients type="bread-bottom" />
     </div>
   );
